@@ -14,10 +14,12 @@ import {
 export function LeadFormSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
 
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
@@ -37,10 +39,12 @@ export function LeadFormSection() {
       if (response.ok) {
         setIsSubmitted(true);
         (e.target as HTMLFormElement).reset();
+      } else {
+        setError("There was a problem submitting your request. Please try again.");
       }
     } catch (error) {
       console.error("Form submission error:", error);
-      // In production, you'd want proper error handling here
+      setError("There was a problem submitting your request. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -192,6 +196,12 @@ export function LeadFormSection() {
                   required
                 />
               </div>
+
+              {error && (
+                <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm">
+                  {error}
+                </div>
+              )}
 
               <Button
                 type="submit"
