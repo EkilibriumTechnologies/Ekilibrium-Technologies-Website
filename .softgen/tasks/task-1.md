@@ -17,7 +17,7 @@ Set up the complete design system for Ekilibrium Technologies: enterprise fleet 
 - [x] Set up Tailwind with Sora + IBM Plex Sans fonts
 - [x] Create Header component with desktop/mobile navigation
 - [x] Create Footer component
-- [ ] Update index.tsx with header/footer structure
+- [x] Update index.tsx with header/footer structure
 
 ## Acceptance
 - Color system reflects enterprise software quality, not startup gradients
