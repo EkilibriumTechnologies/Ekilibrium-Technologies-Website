@@ -16,14 +16,20 @@ export function HeaderEs() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 md:h-20 items-center justify-between">
-        <Link href="/es" className="flex items-center gap-2">
-          <img src="/Meditative_Metallic_Logo_Design.png" alt="Ekilibrium Technologies" className="h-8 w-8" />
-          <span className="font-bold text-lg md:text-xl tracking-tight">Ekilibrium</span>
+    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
+      <nav className="container px-4 sm:px-6 flex items-center justify-between py-4">
+        <Link href="/es" className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 lg:flex-none">
+          <img 
+            src="/Meditative_Metallic_Logo_Design.png" 
+            alt="Ekilibrium Technologies" 
+            className="h-8 sm:h-10 w-auto flex-shrink-0"
+          />
+          <div className="text-base sm:text-lg md:text-xl font-heading font-bold text-primary truncate">
+            Ekilibrium Technologies
+          </div>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-6">
           {navigation.map((item) => (
             <Link
               key={item.name}
@@ -36,20 +42,8 @@ export function HeaderEs() {
           <Button asChild className="bg-accent hover:bg-accent/90 text-white">
             <Link href="#contact">Evaluación Tecnológica</Link>
           </Button>
-        </nav>
-
-        <button
-          className="lg:hidden p-2"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <Menu className="h-6 w-6" />
-          )}
-        </button>
-      </div>
+        </div>
+      </nav>
 
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-border bg-background">
