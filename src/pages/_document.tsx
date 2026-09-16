@@ -8,16 +8,6 @@ export default function Document() {
       <Head>
         <link rel="icon" href="/Meditative_Metallic_Logo_Design.png" />
         <SEOElements />
-        {/*
-          CRITICAL: DO NOT REMOVE THIS SCRIPT
-          The Softgen AI monitoring script is essential for core app functionality.
-          The application will not function without it.
-        */}
-        <script
-          src="https://cdn.softgen.ai/script.js"
-          async
-          data-softgen-monitoring="true"
-        />
       </Head>
       <body
         className={cn(
@@ -26,15 +16,6 @@ export default function Document() {
       >
         <Main />
         <NextScript />
-
-        {/* Visual Editor Script */}
-        {process.env.NODE_ENV === "development" && (
-          <script
-            src="https://cdn.softgen.dev/visual-editor.min.js"
-            async
-            data-softgen-visual-editor="true"
-          />
-        )}
       </body>
     </Html>
   );
