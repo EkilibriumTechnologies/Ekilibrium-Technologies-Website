@@ -38,21 +38,21 @@ export function StreetRentalSection() {
   ];
 
   return (
-    <section id="street-rental" className="py-20 md:py-32 bg-primary text-primary-foreground">
-      <div className="container">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
+    <section id="street-rental" className="py-16 sm:py-20 md:py-32 bg-primary text-primary-foreground">
+      <div className="container px-4 sm:px-6">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="space-y-6 md:space-y-8">
             <div className="inline-block">
               <span className="text-xs font-mono font-medium text-accent uppercase tracking-wider px-3 py-1 bg-accent/20 rounded-full border border-accent/30">
                 BUILT BY EKILIBRIUM
               </span>
             </div>
 
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold leading-tight">
               Meet Street Rental.
             </h2>
 
-            <p className="text-xl font-medium text-primary-foreground/90">
+            <p className="text-lg md:text-xl font-medium text-primary-foreground/90">
               A rental operating platform built for independent vehicle rental companies.
             </p>
 
@@ -107,20 +107,20 @@ export function StreetRentalSection() {
                   <h4 className="text-sm font-semibold text-foreground uppercase tracking-wide">
                     Product Capabilities
                   </h4>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                     {capabilities.map((capability, index) => (
                       <div
                         key={index}
-                        className="flex items-center gap-2 text-xs text-muted-foreground"
+                        className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground"
                       >
-                        <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
-                        <span>{capability}</span>
+                        <div className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></div>
+                        <span className="break-words">{capability}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4 pt-4 border-t border-border">
+                <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-4 border-t border-border">
                   <div className="text-center p-3 bg-muted/30 rounded">
                     <Car className="h-6 w-6 text-accent mx-auto mb-2" />
                     <div className="text-xs text-foreground font-semibold">Fleet</div>

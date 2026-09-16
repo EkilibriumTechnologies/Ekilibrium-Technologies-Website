@@ -5,9 +5,9 @@ import Link from "next/link";
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-background to-muted/30">
-      <div className="container py-20 md:py-32">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
+      <div className="container px-4 sm:px-6 py-16 sm:py-20 md:py-32">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="space-y-6 md:space-y-8">
             <div className="inline-block">
               <span className="text-xs font-mono font-medium text-accent uppercase tracking-wider px-3 py-1 bg-accent/10 rounded-full border border-accent/20">
                 RENTAL TECHNOLOGY & AUTOMATION
@@ -18,11 +18,11 @@ export function HeroSection() {
               The Technology Behind Modern Rental Operations.
             </h1>
 
-            <p className="text-xl text-foreground/80 font-medium">
+            <p className="text-lg md:text-xl text-foreground/80 font-medium">
               Reservations. Payments. Check-in. Vehicle access. Customer communication. AI. One connected operation.
             </p>
 
-            <p className="text-base text-muted-foreground leading-relaxed">
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
               Ekilibrium Technologies builds software, automation, AI and connected customer experiences for independent vehicle rental companies.
             </p>
 
@@ -51,54 +51,54 @@ export function HeroSection() {
 
               <div className="p-4 space-y-3">
                 <div className="flex items-center justify-between p-3 bg-background rounded border border-border hover:border-accent/50 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="flex flex-col">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <div className="flex flex-col min-w-0">
                       <span className="text-xs text-muted-foreground font-mono">9:00 AM</span>
-                      <span className="text-sm font-semibold text-foreground">Wrangler 029</span>
+                      <span className="text-sm font-semibold text-foreground truncate">Wrangler 029</span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1 bg-accent/10 rounded-full">
+                  <div className="flex items-center gap-2 px-2 sm:px-3 py-1 bg-accent/10 rounded-full flex-shrink-0">
                     <CheckCircle2 className="h-3 w-3 text-accent" />
-                    <span className="text-xs font-medium text-accent">Ready</span>
+                    <span className="text-xs font-medium text-accent whitespace-nowrap">Ready</span>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between p-3 bg-background rounded border border-border hover:border-accent/50 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="flex flex-col">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <div className="flex flex-col min-w-0">
                       <span className="text-xs text-muted-foreground font-mono">10:30 AM</span>
-                      <span className="text-sm font-semibold text-foreground">Gladiator 031</span>
+                      <span className="text-sm font-semibold text-foreground truncate">Gladiator 031</span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1 bg-blue-500/10 rounded-full">
+                  <div className="flex items-center gap-2 px-2 sm:px-3 py-1 bg-blue-500/10 rounded-full flex-shrink-0">
                     <Clock className="h-3 w-3 text-blue-500" />
-                    <span className="text-xs font-medium text-blue-500">Check-In Sent</span>
+                    <span className="text-xs font-medium text-blue-500 whitespace-nowrap">Check-In Sent</span>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between p-3 bg-background rounded border border-border hover:border-accent/50 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="flex flex-col">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <div className="flex flex-col min-w-0">
                       <span className="text-xs text-muted-foreground font-mono">12:00 PM</span>
-                      <span className="text-sm font-semibold text-foreground">High Tide 042</span>
+                      <span className="text-sm font-semibold text-foreground truncate">High Tide 042</span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1 bg-green-500/10 rounded-full">
+                  <div className="flex items-center gap-2 px-2 sm:px-3 py-1 bg-green-500/10 rounded-full flex-shrink-0">
                     <CheckCircle2 className="h-3 w-3 text-green-500" />
-                    <span className="text-xs font-medium text-green-500">Deposit Held</span>
+                    <span className="text-xs font-medium text-green-500 whitespace-nowrap">Deposit Held</span>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between p-3 bg-background rounded border border-border hover:border-accent/50 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="flex flex-col">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <div className="flex flex-col min-w-0">
                       <span className="text-xs text-muted-foreground font-mono">2:30 PM</span>
-                      <span className="text-sm font-semibold text-foreground">Wrangler 018</span>
+                      <span className="text-sm font-semibold text-foreground truncate">Wrangler 018</span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1 bg-orange-500/10 rounded-full">
+                  <div className="flex items-center gap-2 px-2 sm:px-3 py-1 bg-orange-500/10 rounded-full flex-shrink-0">
                     <AlertCircle className="h-3 w-3 text-orange-500" />
-                    <span className="text-xs font-medium text-orange-500">Return Due</span>
+                    <span className="text-xs font-medium text-orange-500 whitespace-nowrap">Return Due</span>
                   </div>
                 </div>
               </div>
@@ -106,19 +106,19 @@ export function HeroSection() {
 
             <div className="mt-4 bg-card rounded-lg border border-border shadow-lg p-4">
               <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+                <div className="flex items-start gap-2 sm:gap-3">
+                  <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-muted flex items-center justify-center">
                     <span className="text-xs font-semibold text-foreground">CU</span>
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <div className="bg-muted/50 rounded-lg px-3 py-2">
-                      <p className="text-sm text-foreground">"Can I pick up after 7 PM?"</p>
+                      <p className="text-xs sm:text-sm text-foreground break-words">"Can I pick up after 7 PM?"</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 justify-end">
-                  <div className="flex-1 text-right">
+                <div className="flex items-start gap-2 sm:gap-3 justify-end">
+                  <div className="flex-1 text-right min-w-0">
                     <div className="bg-accent/10 rounded-lg px-3 py-2 inline-block border border-accent/20">
                       <p className="text-xs text-muted-foreground font-mono mb-1">
                         ✓ Reservation found
@@ -131,7 +131,7 @@ export function HeroSection() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center">
+                  <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-accent flex items-center justify-center">
                     <span className="text-xs font-semibold text-accent-foreground">AI</span>
                   </div>
                 </div>

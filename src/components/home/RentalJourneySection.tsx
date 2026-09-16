@@ -17,13 +17,13 @@ export function RentalJourneySection() {
   ];
 
   return (
-    <section className="py-20 md:py-32">
-      <div className="container">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-6">
+    <section className="py-16 sm:py-20 md:py-32">
+      <div className="container px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-4 md:mb-6">
             From Inquiry to Return.
           </h2>
-          <p className="text-lg text-muted-foreground mb-8">
+          <p className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8">
             Instead of adding another disconnected tool, Ekilibrium looks at how the entire rental operation works together.
           </p>
           <div className="inline-block px-4 py-2 bg-accent/10 rounded-full border border-accent/20">
@@ -48,16 +48,16 @@ export function RentalJourneySection() {
           ))}
         </div>
 
-        <div className="lg:hidden space-y-3">
+        <div className="lg:hidden space-y-2 sm:space-y-3">
           {journeySteps.map((step, index) => (
-            <div key={index} className="flex items-center gap-3">
-              <div className="flex-1 p-4 bg-card rounded-lg border border-border">
-                <span className="text-sm font-mono font-semibold text-foreground">
+            <div key={index} className="flex items-center gap-2 sm:gap-3">
+              <div className="flex-1 p-3 sm:p-4 bg-card rounded-lg border border-border">
+                <span className="text-xs sm:text-sm font-mono font-semibold text-foreground">
                   {step}
                 </span>
               </div>
               {index < journeySteps.length - 1 && (
-                <ArrowRight className="h-5 w-5 text-accent" />
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-accent flex-shrink-0" />
               )}
             </div>
           ))}
