@@ -1,19 +1,19 @@
 import { SEO } from "@/components/SEO";
 import { HeaderEs } from "@/components/Header-es";
 import { FooterEs } from "@/components/Footer-es";
-import { HeroSection } from "@/components/home/HeroSection";
-import { RentalOperationsSection } from "@/components/home/RentalOperationsSection";
-import { RentalJourneySection } from "@/components/home/RentalJourneySection";
-import { SolutionsSection } from "@/components/home/SolutionsSection";
-import { StreetRentalSection } from "@/components/home/StreetRentalSection";
-import { AISection } from "@/components/home/AISection";
-import { AutomationSection } from "@/components/home/AutomationSection";
-import { IntegrationsSection } from "@/components/home/IntegrationsSection";
-import { CaseStudySection } from "@/components/home/CaseStudySection";
-import { WhyEkilibriumSection } from "@/components/home/WhyEkilibriumSection";
-import { AboutSection } from "@/components/home/AboutSection";
-import { LeadFormSection } from "@/components/home/LeadFormSection";
-import { FAQSection } from "@/components/home/FAQSection";
+import { HeroSectionEs } from "@/components/home/HeroSection-es";
+import { RentalOperationsSectionEs } from "@/components/home/RentalOperationsSection-es";
+import { RentalJourneySectionEs } from "@/components/home/RentalJourneySection-es";
+import { SolutionsSectionEs } from "@/components/home/SolutionsSection-es";
+import { StreetRentalSectionEs } from "@/components/home/StreetRentalSection-es";
+import { AISectionEs } from "@/components/home/AISection-es";
+import { AutomationSectionEs } from "@/components/home/AutomationSection-es";
+import { IntegrationsSectionEs } from "@/components/home/IntegrationsSection-es";
+import { CaseStudySectionEs } from "@/components/home/CaseStudySection-es";
+import { WhyEkilibriumSectionEs } from "@/components/home/WhyEkilibriumSection-es";
+import { AboutSectionEs } from "@/components/home/AboutSection-es";
+import { LeadFormSectionEs } from "@/components/home/LeadFormSection-es";
+import { FAQSectionEs } from "@/components/home/FAQSection-es";
 
 export default function EsHome() {
   return (
@@ -29,19 +29,19 @@ export default function EsHome() {
       `}</style>
       <HeaderEs />
       <main>
-        <HeroSection />
-        <RentalOperationsSection />
-        <RentalJourneySection />
-        <SolutionsSection />
-        <StreetRentalSection />
-        <AISection />
-        <AutomationSection />
-        <IntegrationsSection />
-        <CaseStudySection />
-        <WhyEkilibriumSection />
-        <AboutSection />
-        <LeadFormSection />
-        <FAQSection />
+        <HeroSectionEs />
+        <RentalOperationsSectionEs />
+        <RentalJourneySectionEs />
+        <SolutionsSectionEs />
+        <StreetRentalSectionEs />
+        <AISectionEs />
+        <AutomationSectionEs />
+        <IntegrationsSectionEs />
+        <CaseStudySectionEs />
+        <WhyEkilibriumSectionEs />
+        <AboutSectionEs />
+        <LeadFormSectionEs />
+        <FAQSectionEs />
       </main>
       <FooterEs />
     </>
