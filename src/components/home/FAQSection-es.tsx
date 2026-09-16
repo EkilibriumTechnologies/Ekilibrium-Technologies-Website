@@ -50,33 +50,37 @@ export function FAQSectionEs() {
   ];
 
   return (
-    <section id="faq" className="py-20 md:py-32 bg-background">
-      <div className="container max-w-4xl">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Preguntas Frecuentes
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            Respuestas comunes sobre cómo trabajamos con operaciones de renta.
-          </p>
-        </div>
+    <section id="faq" className="py-16 sm:py-20 md:py-32 bg-background">
+      <div className="container px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-4 md:mb-6">
+              Preguntas Frecuentes
+            </h2>
+            <p className="text-base md:text-lg text-muted-foreground">
+              Respuestas comunes sobre cómo trabajamos con operaciones de renta.
+            </p>
+          </div>
 
-        <Accordion type="single" collapsible className="space-y-4">
-          {faqs.map((faq, index) => (
-            <AccordionItem
-              key={index}
-              value={`item-${index}`}
-              className="border border-border rounded-lg px-6 bg-card"
-            >
-              <AccordionTrigger className="text-left text-foreground hover:text-accent hover:no-underline">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+          <Accordion type="single" collapsible className="space-y-3 md:space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className="bg-card rounded-lg border border-border px-4 sm:px-6"
+              >
+                <AccordionTrigger className="text-left hover:no-underline py-4">
+                  <span className="font-heading font-semibold text-primary pr-4 text-sm sm:text-base break-words">
+                    {faq.question}
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed pb-4 sm:pb-6 break-words">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
       </div>
     </section>
   );

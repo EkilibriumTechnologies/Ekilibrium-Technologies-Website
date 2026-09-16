@@ -30,29 +30,29 @@ export function AISectionEs() {
   ];
 
   return (
-    <section id="ai-agents" className="py-20 md:py-32 bg-muted/30">
-      <div className="container">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+    <section id="ai-agents" className="py-16 sm:py-20 md:py-32 bg-muted/30">
+      <div className="container px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-4 md:mb-6">
             Agentes de IA para Rentas
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-base md:text-lg text-muted-foreground">
             Agentes de IA especializados que manejan tareas operativas de rutina, permitiéndote concentrarte en hacer crecer tu negocio.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
           {agents.map((agent, index) => (
-            <Card key={index} className="p-8 bg-card border-border hover:border-accent/50 transition-colors">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <agent.icon className="h-6 w-6 text-accent" />
+            <Card key={index} className="p-5 md:p-8 bg-card border-border hover:border-accent/50 transition-colors">
+              <div className="flex items-start gap-3 md:gap-4 mb-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                  <agent.icon className="h-5 w-5 sm:h-6 sm:w-6 text-accent" />
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-foreground mb-2">{agent.title}</h3>
-                  <p className="text-muted-foreground mb-4 leading-relaxed">{agent.description}</p>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-base sm:text-lg md:text-xl font-semibold text-foreground mb-2">{agent.title}</h3>
+                  <p className="text-sm md:text-base text-muted-foreground mb-3 md:mb-4 leading-relaxed break-words">{agent.description}</p>
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20">
-                    <span className="text-xs font-medium text-accent">{agent.capability}</span>
+                    <span className="text-xs font-medium text-accent break-words">{agent.capability}</span>
                   </div>
                 </div>
               </div>
@@ -60,10 +60,10 @@ export function AISectionEs() {
           ))}
         </div>
 
-        <div className="mt-12 p-8 rounded-lg border border-accent/30 bg-accent/5">
+        <div className="mt-12 p-5 md:p-8 rounded-lg border border-accent/30 bg-accent/5">
           <div className="max-w-3xl mx-auto text-center">
-            <h3 className="text-2xl font-semibold text-foreground mb-4">Operaciones Aumentadas por IA</h3>
-            <p className="text-muted-foreground leading-relaxed">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-foreground mb-3 md:mb-4">Operaciones Aumentadas por IA</h3>
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
               No estamos reemplazando tu equipo — estamos aumentándolo. Los agentes de IA manejan tareas repetitivas de alto volumen mientras tu personal se enfoca en experiencias excepcionales para los clientes y decisiones estratégicas de negocio.
             </p>
           </div>
