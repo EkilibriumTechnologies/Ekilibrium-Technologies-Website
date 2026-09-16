@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Globe, MessageSquare, Settings, Shield, Key, TrendingUp } from "lucide-react";
+import Link from "next/link";
 
 export function IntegrationsSection() {
   const capabilities = [
@@ -150,8 +151,8 @@ export function IntegrationsSection() {
             <p className="text-sm md:text-base text-muted-foreground mb-6">
               Ekilibrium does not require operators to replace their entire technology stack. We can integrate with existing rental systems, automate gaps between systems, create customer-facing experiences, or develop custom rental technology when off-the-shelf software is not enough.
             </p>
-            <Button size="lg" className="bg-primary hover:bg-primary/90">
-              Discuss Your Rental Operation
+            <Button size="lg" asChild className="bg-primary hover:bg-primary/90">
+              <Link href="#contact">Discuss Your Rental Operation</Link>
             </Button>
           </div>
         </div>

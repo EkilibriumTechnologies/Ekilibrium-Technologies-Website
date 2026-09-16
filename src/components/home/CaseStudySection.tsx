@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin } from "lucide-react";
+import Link from "next/link";
 
 export function CaseStudySection() {
   const architecture = [
@@ -96,9 +97,11 @@ export function CaseStudySection() {
         </div>
 
         <div className="text-center mt-8">
-          <Button variant="outline" className="border-accent text-accent hover:bg-accent/10">
-            View Case Study
-            <ArrowRight className="ml-2 h-4 w-4" />
+          <Button variant="outline" asChild className="border-accent text-accent hover:bg-accent/10">
+            <Link href="#contact">
+              View Case Study
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
           </Button>
         </div>
       </div>

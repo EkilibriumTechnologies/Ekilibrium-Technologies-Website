@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Car, Clock, Shield, Smartphone, Lock, Users } from "lucide-react";
+import Link from "next/link";
 
 export function StreetRentalSection() {
   const operatingModels = [
@@ -85,10 +86,13 @@ export function StreetRentalSection() {
 
             <Button
               size="lg"
+              asChild
               className="bg-accent hover:bg-accent/90 text-accent-foreground"
             >
-              Explore Street Rental
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <Link href="#contact">
+                Explore Street Rental
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
           </div>
 
