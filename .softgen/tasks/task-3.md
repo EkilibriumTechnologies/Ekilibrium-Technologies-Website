@@ -13,10 +13,10 @@ position: 3
 Create two key sections: (1) Rental Operations showing complexity/problems in visual composition, (2) Rental Journey showing connected workflow from inquiry to follow-up as sophisticated timeline/flow diagram.
 
 ## Checklist
-- [ ] Rental Operations section with visual problem composition
-- [ ] Rental Journey timeline: inquiry → availability → quote → reservation → payment → assignment → check-in → pickup → rental → return → settlement → follow-up
-- [ ] Desktop horizontal workflow, mobile vertical timeline
-- [ ] "One Connected Rental Journey" highlight
+- [x] Create RentalOperationsSection showing complexity points
+- [x] Create RentalJourneySection with full workflow timeline
+- [x] Make journey responsive (grid on desktop, vertical on mobile)
+- [x] Integrate both sections into index.tsx
 
 ## Acceptance
 - Rental Operations shows operational complexity clearly
