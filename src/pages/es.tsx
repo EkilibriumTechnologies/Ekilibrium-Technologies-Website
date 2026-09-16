@@ -1,6 +1,6 @@
 import { SEO } from "@/components/SEO";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { HeaderEs } from "@/components/Header-es";
+import { FooterEs } from "@/components/Footer-es";
 import { HeroSection } from "@/components/home/HeroSection";
 import { RentalOperationsSection } from "@/components/home/RentalOperationsSection";
 import { RentalJourneySection } from "@/components/home/RentalJourneySection";
@@ -27,7 +27,7 @@ export default function EsHome() {
           scroll-margin-top: 80px;
         }
       `}</style>
-      <Header />
+      <HeaderEs />
       <main>
         <HeroSection />
         <RentalOperationsSection />
@@ -43,7 +43,7 @@ export default function EsHome() {
         <LeadFormSection />
         <FAQSection />
       </main>
-      <Footer />
+      <FooterEs />
     </>
   );
 }
