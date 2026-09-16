@@ -17,14 +17,14 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-      <nav className="container flex items-center justify-between py-4">
-        <Link href="/" className="flex items-center gap-3">
+      <nav className="container px-4 sm:px-6 flex items-center justify-between py-4">
+        <Link href="/" className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 lg:flex-none">
           <img 
             src="/Meditative_Metallic_Logo_Design.png" 
             alt="Ekilibrium Technologies" 
-            className="h-10 w-auto"
+            className="h-8 sm:h-10 w-auto flex-shrink-0"
           />
-          <div className="text-xl font-heading font-bold text-primary">
+          <div className="text-base sm:text-lg md:text-xl font-heading font-bold text-primary truncate">
             Ekilibrium Technologies
           </div>
         </Link>
