@@ -1,6 +1,6 @@
 ---
 title: Case Study, Why Ekilibrium & About
-status: todo
+status: done
 priority: medium
 type: feature
 tags: [case-study, about]

@@ -1,6 +1,6 @@
 ---
 title: Hero Section with Rental Ops UI
-status: todo
+status: done
 priority: urgent
 type: feature
 tags: [hero, ui-mockup]

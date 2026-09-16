@@ -1,6 +1,6 @@
 ---
 title: Street Rental Product Showcase
-status: todo
+status: done
 priority: high
 type: feature
 tags: [product, street-rental]

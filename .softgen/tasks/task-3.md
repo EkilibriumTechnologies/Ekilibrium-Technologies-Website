@@ -1,9 +1,9 @@
 ---
 title: Rental Operations & Journey Sections
-status: todo
+status: done
 priority: high
 type: feature
-tags: [sections, workflows]
+tags: [operations, journey]
 created_by: agent
 created_at: 2026-09-16T18:38:28Z
 position: 3

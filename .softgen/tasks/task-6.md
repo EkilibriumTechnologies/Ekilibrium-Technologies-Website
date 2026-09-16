@@ -1,6 +1,6 @@
 ---
 title: AI, Automation & Integrations
-status: todo
+status: done
 priority: medium
 type: feature
 tags: [ai, automation, integrations]
