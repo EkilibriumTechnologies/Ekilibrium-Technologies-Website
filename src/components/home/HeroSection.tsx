@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Clock, CheckCircle2, AlertCircle } from "lucide-react";
+import Link from "next/link";
 
 export function HeroSection() {
   return (
@@ -26,12 +27,14 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-base">
-                Book a Rental Tech Audit
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button size="lg" asChild className="bg-accent hover:bg-accent/90 text-accent-foreground text-base">
+                <Link href="#contact">
+                  Book a Rental Tech Audit
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" className="text-base border-border hover:bg-muted/50">
-                Explore Solutions
+              <Button size="lg" variant="outline" asChild className="text-base border-border hover:bg-muted/50">
+                <Link href="#solutions">Explore Solutions</Link>
               </Button>
             </div>
           </div>

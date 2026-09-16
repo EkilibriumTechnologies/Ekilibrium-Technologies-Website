@@ -35,7 +35,7 @@ export function AISection() {
   ];
 
   return (
-    <section id="ai-rentals" className="py-20 md:py-32 bg-muted/30">
+    <section id="ai-agents" className="py-20 md:py-32 bg-muted/30">
       <div className="container">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-6">

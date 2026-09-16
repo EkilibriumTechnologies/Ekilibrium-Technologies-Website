@@ -9,7 +9,7 @@ export function Header() {
   const navigation = [
     { name: "Solutions", href: "#solutions" },
     { name: "Street Rental", href: "#street-rental" },
-    { name: "AI Agents", href: "#ai-rentals" },
+    { name: "AI Agents", href: "#ai-agents" },
     { name: "Integrations", href: "#integrations" },
     { name: "Case Study", href: "#case-study" },
     { name: "About", href: "#about" },
@@ -69,6 +69,9 @@ export function Header() {
                 {item.name}
               </Link>
             ))}
+            <Button asChild className="bg-accent hover:bg-accent/90 text-white w-full">
+              <Link href="#contact">Book a Rental Tech Audit</Link>
+            </Button>
           </div>
         </div>
       )}

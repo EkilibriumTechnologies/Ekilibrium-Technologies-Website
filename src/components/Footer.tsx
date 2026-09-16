@@ -6,16 +6,11 @@ export function Footer() {
   const links = [
     { name: "Solutions", href: "#solutions" },
     { name: "Street Rental", href: "#street-rental" },
-    { name: "AI for Rentals", href: "#ai-rentals" },
+    { name: "AI Agents", href: "#ai-agents" },
     { name: "Integrations", href: "#integrations" },
     { name: "Case Study", href: "#case-study" },
     { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },
-  ];
-
-  const legal = [
-    { name: "Privacy", href: "#privacy" },
-    { name: "Terms", href: "#terms" },
   ];
 
   return (
@@ -48,19 +43,10 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-foreground mb-4">Legal</h3>
-            <ul className="space-y-2">
-              {legal.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-accent transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <h3 className="text-sm font-semibold text-foreground mb-4">Contact</h3>
+            <p className="text-sm text-muted-foreground">
+              Puerto Rico
+            </p>
           </div>
         </div>
 

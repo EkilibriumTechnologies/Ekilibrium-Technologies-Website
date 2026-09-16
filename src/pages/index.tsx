@@ -22,6 +22,11 @@ export default function Home() {
         title="Ekilibrium Technologies | Rental Technology & Automation"
         description="Software, automation, AI and integrations for independent vehicle rental businesses. Specializing in car, Jeep, exotic, van, golf cart, and ATV rentals."
       />
+      <style jsx global>{`
+        section[id] {
+          scroll-margin-top: 80px;
+        }
+      `}</style>
       <Header />
       <main>
         <HeroSection />
