@@ -9,7 +9,7 @@ export function Header() {
   const navigation = [
     { name: "Solutions", href: "#solutions" },
     { name: "Street Rental", href: "#street-rental" },
-    { name: "AI for Rentals", href: "#ai-rentals" },
+    { name: "AI Agents", href: "#ai-rentals" },
     { name: "Integrations", href: "#integrations" },
     { name: "Case Study", href: "#case-study" },
     { name: "About", href: "#about" },
@@ -22,24 +22,18 @@ export function Header() {
           <div className="text-xl font-heading font-bold text-primary">
             Ekilibrium Technologies
           </div>
-          <div className="hidden sm:block text-xs text-muted-foreground border-l border-border pl-2 ml-2">
-            Rental Technology & Automation
-          </div>
         </Link>
 
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-6">
           {navigation.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="text-sm font-medium text-foreground/80 hover:text-accent transition-colors"
+              className="text-sm font-medium text-foreground/80 hover:text-accent transition-colors whitespace-nowrap"
             >
               {item.name}
             </Link>
           ))}
-          <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
-            Book a Rental Tech Audit
-          </Button>
         </div>
 
         <button
@@ -67,9 +61,6 @@ export function Header() {
                 {item.name}
               </Link>
             ))}
-            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground w-full mt-2">
-              Book a Rental Tech Audit
-            </Button>
           </div>
         </div>
       )}
