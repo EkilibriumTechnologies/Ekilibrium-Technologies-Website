@@ -34,6 +34,9 @@ export function Header() {
               {item.name}
             </Link>
           ))}
+          <Button asChild className="bg-accent hover:bg-accent/90 text-white">
+            <Link href="#contact">Book a Rental Tech Audit</Link>
+          </Button>
         </div>
 
         <button
