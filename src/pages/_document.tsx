@@ -6,6 +6,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <link rel="icon" href="/Meditative_Metallic_Logo_Design.png" />
         <SEOElements />
         {/*
           CRITICAL: DO NOT REMOVE THIS SCRIPT

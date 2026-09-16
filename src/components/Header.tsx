@@ -18,7 +18,12 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
       <nav className="container flex items-center justify-between py-4">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-3">
+          <img 
+            src="/Meditative_Metallic_Logo_Design.png" 
+            alt="Ekilibrium Technologies" 
+            className="h-10 w-auto"
+          />
           <div className="text-xl font-heading font-bold text-primary">
             Ekilibrium Technologies
           </div>
