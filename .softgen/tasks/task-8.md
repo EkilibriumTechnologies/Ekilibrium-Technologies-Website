@@ -13,11 +13,10 @@ position: 8
 Create polished lead form "Book a Rental Tech Audit" with fields for rental business info, and comprehensive FAQ section. Form must be portable for GitHub export with env vars.
 
 ## Checklist
-- [ ] Lead form section with headline, description
-- [ ] Form fields: First/Last Name, Company, Email, Phone, Fleet Size, Current Software, Challenge
-- [ ] Portable form submission architecture (env vars)
-- [ ] FAQ section with 11 questions
-- [ ] Accordion or clean layout for FAQs
+- [x] Create LeadFormSection with all required fields
+- [x] Implement portable form architecture using environment variables
+- [x] Create FAQSection with 11 rental-focused questions
+- [x] Integrate both sections into index.tsx
 
 ## Acceptance
 - Form is professional and easy to complete on mobile
