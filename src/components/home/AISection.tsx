@@ -35,26 +35,26 @@ export function AISection() {
   ];
 
   return (
-    <section id="ai-agents" className="py-20 md:py-32 bg-muted/30">
-      <div className="container">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-6">
+    <section id="ai-agents" className="py-16 sm:py-20 md:py-32 bg-muted/30">
+      <div className="container px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-4 md:mb-6">
             AI That Understands Rental Operations.
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-base md:text-lg text-muted-foreground">
             AI assistants that can interact with business knowledge, rental policies, availability, reservations and customer data — where appropriate integrations exist.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {aiCapabilities.map((capability, index) => {
             const Icon = capability.icon;
             return (
-              <div key={index} className="bg-card rounded-lg border border-border p-6 space-y-4">
+              <div key={index} className="bg-card rounded-lg border border-border p-5 md:p-6 space-y-4">
                 <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
                   <Icon className="h-6 w-6 text-accent" />
                 </div>
-                <h3 className="text-xl font-heading font-semibold text-primary">
+                <h3 className="text-lg md:text-xl font-heading font-semibold text-primary">
                   {capability.title}
                 </h3>
                 <p className="text-sm text-muted-foreground">
@@ -63,7 +63,7 @@ export function AISection() {
                 <div className="space-y-2 pt-2">
                   {capability.examples.map((example, i) => (
                     <div key={i} className="bg-muted/50 rounded px-3 py-2">
-                      <p className="text-xs text-foreground/80">{example}</p>
+                      <p className="text-xs sm:text-sm text-foreground/80 break-words">{example}</p>
                     </div>
                   ))}
                 </div>
@@ -72,8 +72,8 @@ export function AISection() {
           })}
         </div>
 
-        <div className="mt-12 max-w-2xl mx-auto p-6 bg-accent/5 rounded-lg border border-accent/20">
-          <p className="text-sm text-center text-foreground">
+        <div className="mt-12 max-w-2xl mx-auto p-5 md:p-6 bg-accent/5 rounded-lg border border-accent/20">
+          <p className="text-xs sm:text-sm text-center text-foreground">
             All AI interactions include <span className="font-semibold text-accent">human escalation</span> for exceptions and complex scenarios that require operator judgment.
           </p>
         </div>

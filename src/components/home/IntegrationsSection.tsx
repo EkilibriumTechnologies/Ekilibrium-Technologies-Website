@@ -97,42 +97,42 @@ export function IntegrationsSection() {
   ];
 
   return (
-    <section id="integrations" className="py-20 md:py-32 bg-muted/30">
-      <div className="container">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-6">
+    <section id="integrations" className="py-16 sm:py-20 md:py-32 bg-muted/30">
+      <div className="container px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-4 md:mb-6">
             One Partner Across Your Rental Operation.
           </h2>
-          <p className="text-lg md:text-xl text-foreground/80">
+          <p className="text-base md:text-lg md:text-xl text-foreground/80">
             From the first customer inquiry to the final deposit release, we design the technology around how your rental business actually operates.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
           {capabilities.map((capability, index) => {
             const Icon = capability.icon;
             return (
               <div
                 key={index}
-                className="bg-card rounded-lg border border-border p-8 hover:border-accent/30 transition-colors"
+                className="bg-card rounded-lg border border-border p-5 md:p-8 hover:border-accent/30 transition-colors"
               >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-2 bg-accent/10 rounded-lg">
-                    <Icon className="h-5 w-5 text-accent" />
+                <div className="flex items-start gap-3 md:gap-4 mb-4">
+                  <div className="p-2 bg-accent/10 rounded-lg flex-shrink-0">
+                    <Icon className="h-4 w-4 md:h-5 md:w-5 text-accent" />
                   </div>
-                  <h3 className="text-lg font-heading font-semibold text-primary pt-1">
+                  <h3 className="text-base md:text-lg font-heading font-semibold text-primary pt-1">
                     {capability.title}
                   </h3>
                 </div>
-                <ul className="space-y-2 mb-4 text-sm text-muted-foreground">
+                <ul className="space-y-2 mb-4 text-xs sm:text-sm text-muted-foreground">
                   {capability.areas.map((area, i) => (
                     <li key={i} className="flex items-start">
-                      <span className="mr-2 text-accent">•</span>
-                      <span>{area}</span>
+                      <span className="mr-2 text-accent flex-shrink-0">•</span>
+                      <span className="break-words">{area}</span>
                     </li>
                   ))}
                 </ul>
-                <p className="text-sm text-foreground/70 leading-relaxed border-t border-border pt-4">
+                <p className="text-xs sm:text-sm text-foreground/70 leading-relaxed border-t border-border pt-4">
                   {capability.description}
                 </p>
               </div>
@@ -141,17 +141,17 @@ export function IntegrationsSection() {
         </div>
 
         <div className="max-w-3xl mx-auto">
-          <div className="bg-card rounded-lg border border-border p-8 md:p-10">
-            <h3 className="text-2xl md:text-3xl font-heading font-bold text-primary mb-4">
+          <div className="bg-card rounded-lg border border-border p-6 md:p-8 lg:p-10">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-primary mb-3 md:mb-4">
               Already have software you want to keep?
             </h3>
-            <p className="text-base md:text-lg text-foreground/80 mb-6">
+            <p className="text-base md:text-lg text-foreground/80 mb-4 md:mb-6">
               We can work around it, connect it, extend it—or build what's missing.
             </p>
             <p className="text-sm md:text-base text-muted-foreground mb-6">
               Ekilibrium does not require operators to replace their entire technology stack. We can integrate with existing rental systems, automate gaps between systems, create customer-facing experiences, or develop custom rental technology when off-the-shelf software is not enough.
             </p>
-            <Button size="lg" asChild className="bg-primary hover:bg-primary/90">
+            <Button size="lg" asChild className="bg-primary hover:bg-primary/90 w-full sm:w-auto">
               <Link href="#contact">Discuss Your Rental Operation</Link>
             </Button>
           </div>
