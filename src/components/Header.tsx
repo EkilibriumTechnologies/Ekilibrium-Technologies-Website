@@ -39,6 +39,13 @@ export function Header() {
               {item.name}
             </Link>
           ))}
+          <div className="flex items-center gap-2 text-sm">
+            <span className="font-medium text-accent">EN</span>
+            <span className="text-muted-foreground">|</span>
+            <Link href="/es" className="text-foreground/60 hover:text-accent transition-colors">
+              ES
+            </Link>
+          </div>
           <Button asChild className="bg-accent hover:bg-accent/90 text-white">
             <Link href="#contact">Book a Rental Tech Audit</Link>
           </Button>
@@ -69,6 +76,18 @@ export function Header() {
                 {item.name}
               </Link>
             ))}
+            <div className="flex items-center gap-3 py-2 border-t border-border mt-2">
+              <span className="text-sm text-muted-foreground">Language:</span>
+              <span className="text-sm font-medium text-accent">EN</span>
+              <span className="text-sm text-muted-foreground">|</span>
+              <Link 
+                href="/es" 
+                className="text-sm text-foreground/60 hover:text-accent transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                ES
+              </Link>
+            </div>
             <Button asChild className="bg-accent hover:bg-accent/90 text-white w-full">
               <Link href="#contact">Book a Rental Tech Audit</Link>
             </Button>

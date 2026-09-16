@@ -39,10 +39,28 @@ export function HeaderEs() {
               {item.name}
             </Link>
           ))}
+          <div className="flex items-center gap-2 text-sm">
+            <Link href="/" className="text-foreground/60 hover:text-accent transition-colors">
+              EN
+            </Link>
+            <span className="text-muted-foreground">|</span>
+            <span className="font-medium text-accent">ES</span>
+          </div>
           <Button asChild className="bg-accent hover:bg-accent/90 text-white">
             <Link href="#contact">Evaluación Tecnológica</Link>
           </Button>
         </div>
+
+        <button
+          className="lg:hidden p-2"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? (
+            <X className="h-6 w-6 text-foreground" />
+          ) : (
+            <Menu className="h-6 w-6 text-foreground" />
+          )}
+        </button>
       </nav>
 
       {mobileMenuOpen && (
@@ -58,6 +76,18 @@ export function HeaderEs() {
                 {item.name}
               </Link>
             ))}
+            <div className="flex items-center gap-3 py-2 border-t border-border mt-2">
+              <span className="text-sm text-muted-foreground">Idioma:</span>
+              <Link 
+                href="/" 
+                className="text-sm text-foreground/60 hover:text-accent transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                EN
+              </Link>
+              <span className="text-sm text-muted-foreground">|</span>
+              <span className="text-sm font-medium text-accent">ES</span>
+            </div>
             <Button asChild className="bg-accent hover:bg-accent/90 text-white w-full">
               <Link href="#contact">Evaluación Tecnológica</Link>
             </Button>
