@@ -194,18 +194,24 @@ Tailwind breakpoints: `sm:` (640px), `md:` (768px), `lg:` (1024px), `xl:` (1280p
 
 ## Deployment
 
-### Vercel (Recommended)
+### Netlify (Recommended)
+
+This project is intended to be deployed on Netlify. Hosting is not preconfigured in the repository; connect the GitHub repo in Netlify and use the standard Next.js build.
 
 1. Push to GitHub
-2. Import project in Vercel
-3. Set environment variables in Vercel dashboard
-4. Deploy
+2. Import the project in Netlify
+3. Set environment variables in the Netlify dashboard if needed
+4. Deploy with Netlify's Next.js runtime (`npm run build`)
 
 ### Other Platforms
+
+You can also deploy this Next.js app on any host that supports Node.js:
 
 1. Build: `npm run build`
 2. Start: `npm start`
 3. Serve on port 3000 (configurable via PORT environment variable)
+
+See the [Next.js deployment documentation](https://nextjs.org/docs/pages/getting-started/deploying) for additional options.
 
 ## License
 
