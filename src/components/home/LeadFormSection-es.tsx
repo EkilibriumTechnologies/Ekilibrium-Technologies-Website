@@ -15,6 +15,7 @@ export function LeadFormSectionEs() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fleetSize, setFleetSize] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,13 +23,22 @@ export function LeadFormSectionEs() {
     setError(null);
 
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
+    const fields = Object.fromEntries(formData.entries());
+    const data = {
+      firstName: fields.firstName,
+      lastName: fields.lastName,
+      company: fields.company,
+      email: fields.email,
+      phone: fields.phone,
+      fleetSize,
+      currentSoftware: fields.currentSoftware,
+      challenge: fields.challenge,
+      language: "es" as const,
+      website: fields.website,
+    };
 
     try {
-      // Form submission endpoint - configure in environment variables
-      const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/api/submit-lead";
-      
-      const response = await fetch(endpoint, {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,6 +48,7 @@ export function LeadFormSectionEs() {
 
       if (response.ok) {
         setIsSubmitted(true);
+        setFleetSize("");
         (e.target as HTMLFormElement).reset();
       } else {
         setError("Hubo un problema al enviar tu solicitud. Por favor intenta de nuevo.");
@@ -160,7 +171,7 @@ export function LeadFormSectionEs() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="fleetSize">Tamaño de Flota *</Label>
-                  <Select name="fleetSize" required>
+                  <Select name="fleetSize" required onValueChange={setFleetSize}>
                     <SelectTrigger className="border-border">
                       <SelectValue placeholder="Selecciona tamaño de flota" />
                     </SelectTrigger>
@@ -211,6 +222,20 @@ export function LeadFormSectionEs() {
               >
                 {isSubmitting ? "Enviando..." : "Reservar Evaluación Tecnológica"}
               </Button>
+
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -left-[10000px] h-0 w-0 overflow-hidden"
+              >
+                <label htmlFor="website">Website</label>
+                <input
+                  id="website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
             </form>
 
             <p className="text-xs text-muted-foreground text-center mt-6">
