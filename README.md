@@ -123,7 +123,7 @@ Both forms POST JSON to the same-origin API route `POST /api/contact`. The brows
 - Error: localized error message with retry option
 
 **Rate limiting limitations:**
-In-memory rate limiting is best-effort only. Serverless instances do not share counters, cold starts reset the Map, and `X-Forwarded-For` is only trustworthy behind a trusted proxy. This is not a substitute for CDN/WAF limits or a shared store.
+In-memory serverless rate limiting is best-effort only. Serverless instances do not share counters, and cold starts reset the Map. On Netlify, the client connection IP (`x-nf-client-connection-ip`) is preferred when present; `X-Forwarded-For` is only a fallback (first hop), then the socket remote address for local development. This is not a substitute for CDN/WAF limits or a shared store.
 
 ## Project Structure
 
