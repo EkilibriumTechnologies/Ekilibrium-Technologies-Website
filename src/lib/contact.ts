@@ -14,6 +14,7 @@ export const WEBHOOK_SECRET_HEADER = "X-Ekilibrium-Webhook-Secret";
 export const WEBHOOK_TIMEOUT_MS = 8_000;
 export const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 export const RATE_LIMIT_MAX_REQUESTS = 5;
+export const CLIENT_IP_MAX_LENGTH = 64;
 
 /**
  * In-memory / serverless rate limiting limitations:
@@ -22,12 +23,77 @@ export const RATE_LIMIT_MAX_REQUESTS = 5;
  *   Netlify do not share counters, so an attacker can exceed the limit by
  *   spreading requests across cold starts or instances.
  * - Counters reset on process recycle / cold start.
- * - Client IPs from X-Forwarded-For are only trustworthy behind a trusted
- *   proxy (Netlify). Spoofed headers can bypass or cluster keys.
+ * - On Netlify, x-nf-client-connection-ip is preferred when present.
+ *   X-Forwarded-For is only a fallback (first hop). Other forwarded headers
+ *   are ignored. Spoofed headers outside a trusted proxy can still bypass
+ *   or cluster keys.
  * - This is a best-effort abuse brake, not a substitute for WAF/CDN limits
  *   or a shared store such as Redis.
  */
 const rateLimitBuckets = new Map<string, number[]>();
+
+export type ClientIpHeaders = {
+  [header: string]: string | string[] | undefined;
+};
+
+function firstHeaderValue(value: string | string[] | undefined): string {
+  if (typeof value === "string") {
+    return value.trim();
+  }
+  if (Array.isArray(value) && typeof value[0] === "string") {
+    return value[0].trim();
+  }
+  return "";
+}
+
+function normalizeIp(value: string, takeFirstForwardedHop: boolean): string {
+  let candidate = value.trim();
+  if (!candidate) {
+    return "";
+  }
+  if (takeFirstForwardedHop) {
+    candidate = candidate.split(",")[0]?.trim() ?? "";
+  }
+  return candidate.slice(0, CLIENT_IP_MAX_LENGTH);
+}
+
+/**
+ * Resolve a rate-limit key from the incoming request.
+ *
+ * Preference order:
+ * 1. x-nf-client-connection-ip (Netlify client connection IP)
+ * 2. first hop of x-forwarded-for
+ * 3. socket remoteAddress (local Next.js / Node)
+ * 4. "unknown"
+ *
+ * Do not log the resolved value.
+ */
+export function resolveClientIp(input: {
+  headers?: ClientIpHeaders;
+  remoteAddress?: string | null;
+}): string {
+  const headers = input.headers ?? {};
+
+  const netlifyIp = normalizeIp(
+    firstHeaderValue(headers["x-nf-client-connection-ip"]),
+    false,
+  );
+  if (netlifyIp) {
+    return netlifyIp;
+  }
+
+  const forwardedIp = normalizeIp(firstHeaderValue(headers["x-forwarded-for"]), true);
+  if (forwardedIp) {
+    return forwardedIp;
+  }
+
+  const socketIp = (input.remoteAddress ?? "").trim().slice(0, CLIENT_IP_MAX_LENGTH);
+  if (socketIp) {
+    return socketIp;
+  }
+
+  return "unknown";
+}
 
 export type ContactLead = z.infer<typeof contactLeadSchema>;
 
@@ -82,7 +148,7 @@ export function resetRateLimitStore() {
 }
 
 export function isRateLimited(ip: string, now = Date.now()): boolean {
-  const key = ip.trim().slice(0, 64) || "unknown";
+  const key = ip.trim().slice(0, CLIENT_IP_MAX_LENGTH) || "unknown";
   const timestamps = (rateLimitBuckets.get(key) ?? []).filter(
     (timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS,
   );

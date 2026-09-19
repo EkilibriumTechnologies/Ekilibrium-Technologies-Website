@@ -1,10 +1,12 @@
 import assert from "node:assert/strict";
 import { afterEach, beforeEach, test } from "node:test";
 import {
+  CLIENT_IP_MAX_LENGTH,
   CONTACT_SOURCE,
   WEBHOOK_SECRET_HEADER,
   processContactRequest,
   resetRateLimitStore,
+  resolveClientIp,
   type ContactEnv,
 } from "./contact";
 
@@ -252,4 +254,69 @@ test("duplicate submissions over the window limit are rate limited", async () =>
   assert.equal(limited.status, 429);
   assert.deepEqual(limited.body, { ok: false, error: "rate_limited" });
   assert.equal(calls.length, 5);
+});
+
+test("Netlify client IP takes precedence over X-Forwarded-For", () => {
+  const ip = resolveClientIp({
+    headers: {
+      "x-nf-client-connection-ip": "  198.51.100.20  ",
+      "x-forwarded-for": "203.0.113.1, 10.0.0.1",
+    },
+    remoteAddress: "127.0.0.1",
+  });
+
+  assert.equal(ip, "198.51.100.20");
+});
+
+test("X-Forwarded-For first hop is used when Netlify header is absent", () => {
+  const ip = resolveClientIp({
+    headers: {
+      "x-forwarded-for": "  203.0.113.40, 10.0.0.1, 192.168.0.1  ",
+    },
+    remoteAddress: "127.0.0.1",
+  });
+
+  assert.equal(ip, "203.0.113.40");
+});
+
+test("socket remoteAddress is used when forwarded headers are absent", () => {
+  const ip = resolveClientIp({
+    headers: {},
+    remoteAddress: "  ::1  ",
+  });
+
+  assert.equal(ip, "::1");
+});
+
+test("unknown is used when no client IP source is available", () => {
+  assert.equal(resolveClientIp({ headers: {}, remoteAddress: "" }), "unknown");
+  assert.equal(resolveClientIp({ headers: {}, remoteAddress: null }), "unknown");
+  assert.equal(resolveClientIp({}), "unknown");
+});
+
+test("empty Netlify header falls through to X-Forwarded-For", () => {
+  const ip = resolveClientIp({
+    headers: {
+      "x-nf-client-connection-ip": "   ",
+      "x-forwarded-for": "203.0.113.50",
+    },
+    remoteAddress: "127.0.0.1",
+  });
+
+  assert.equal(ip, "203.0.113.50");
+});
+
+test("additional forwarded headers are ignored and IP keys are length-limited", () => {
+  const oversized = `203.0.113.60${"0".repeat(80)}`;
+  const ip = resolveClientIp({
+    headers: {
+      "x-real-ip": "198.51.100.99",
+      "true-client-ip": "198.51.100.98",
+      "x-forwarded-for": oversized,
+    },
+    remoteAddress: "127.0.0.1",
+  });
+
+  assert.equal(ip, oversized.slice(0, CLIENT_IP_MAX_LENGTH));
+  assert.equal(ip.length, CLIENT_IP_MAX_LENGTH);
 });

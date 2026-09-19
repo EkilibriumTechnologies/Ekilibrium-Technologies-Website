@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { processContactRequest } from "@/lib/contact";
+import { processContactRequest, resolveClientIp } from "@/lib/contact";
 
 export const config = {
   api: {
@@ -9,24 +9,16 @@ export const config = {
   },
 };
 
-function getClientIp(req: NextApiRequest): string {
-  const forwarded = req.headers["x-forwarded-for"];
-  if (typeof forwarded === "string" && forwarded.trim()) {
-    return forwarded.split(",")[0].trim();
-  }
-  if (Array.isArray(forwarded) && forwarded[0]) {
-    return forwarded[0].split(",")[0].trim();
-  }
-  return req.socket?.remoteAddress || "unknown";
-}
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   const result = await processContactRequest({
     method: req.method,
-    ip: getClientIp(req),
+    ip: resolveClientIp({
+      headers: req.headers,
+      remoteAddress: req.socket?.remoteAddress,
+    }),
     body: req.body,
     env: {
       webhookUrl: process.env.CONTACT_N8N_WEBHOOK_URL,
