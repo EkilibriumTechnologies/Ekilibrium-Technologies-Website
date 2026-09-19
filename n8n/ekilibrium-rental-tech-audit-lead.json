@@ -1,0 +1,312 @@
+{
+  "name": "Ekilibrium Rental Tech Audit Lead",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Ekilibrium Rental Tech Audit Lead\n\nReceives validated leads forwarded by the website API (`POST /api/contact`).\n\n**Do not** point the browser at this webhook. Configure Netlify/server env only:\n- `CONTACT_N8N_WEBHOOK_URL`\n- `CONTACT_WEBHOOK_SECRET` (must match the Header Auth credential below)\n\n### Missing production connections\nThis repository has **no** approved storage or operator-email integration yet.\nAfter import, connect durable storage and/or operator notification before relying on production leads.\nUntil then, accepted leads are retained only in n8n execution history.",
+        "height": 460,
+        "width": 420
+      },
+      "id": "a1000001-0000-4000-8000-000000000001",
+      "name": "Setup Notes",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -520,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ekilibrium-rental-tech-audit-lead",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "a1000001-0000-4000-8000-000000000002",
+      "name": "Rental Tech Audit Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "webhookId": "ekilibrium-rental-tech-audit-lead",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": null,
+          "name": "Ekilibrium Webhook Secret"
+        }
+      },
+      "notes": "Create an n8n Header Auth credential named \"Ekilibrium Webhook Secret\". Header name must be X-Ekilibrium-Webhook-Secret. Value must match CONTACT_WEBHOOK_SECRET. Never commit the secret."
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const FLEET_SIZES = new Set(['1-5', '6-10', '11-25', '26-50', '51-100', '100+']);\nconst LANGUAGES = new Set(['en', 'es']);\nconst EXPECTED_SOURCE = 'ekilibrium-technologies-website';\nconst EMAIL_RE = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\nconst ENVELOPE_KEYS = new Set(['headers', 'params', 'query', 'body', 'webhookUrl', 'executionMode']);\nconst ALLOWED_LEAD_KEYS = new Set([\n  'firstName',\n  'lastName',\n  'company',\n  'email',\n  'phone',\n  'fleetSize',\n  'currentSoftware',\n  'challenge',\n  'language',\n  'source',\n  'submittedAt',\n]);\n\nconst reject = (status, error) => [{\n  json: {\n    valid: false,\n    status,\n    error,\n  },\n}];\n\nconst root = items[0]?.json ?? {};\nconst leadSource =\n  root.body && typeof root.body === 'object' && !Array.isArray(root.body)\n    ? root.body\n    : Object.fromEntries(\n        Object.entries(root).filter(([key]) => !ENVELOPE_KEYS.has(key)),\n      );\n\nif (!leadSource || typeof leadSource !== 'object' || Array.isArray(leadSource)) {\n  return reject(400, 'invalid_request');\n}\n\nfor (const key of Object.keys(leadSource)) {\n  if (!ALLOWED_LEAD_KEYS.has(key)) {\n    return reject(400, 'invalid_request');\n  }\n}\n\nconst asTrimmedString = (value) =>\n  typeof value === 'string' ? value.trim() : null;\n\nconst requiredString = (key, max) => {\n  const value = asTrimmedString(leadSource[key]);\n  if (!value || value.length > max) {\n    return null;\n  }\n  return value;\n};\n\nconst optionalString = (key, max) => {\n  if (!(key in leadSource) || leadSource[key] === null || leadSource[key] === undefined) {\n    return '';\n  }\n  const value = asTrimmedString(leadSource[key]);\n  if (value === null || value.length > max) {\n    return null;\n  }\n  return value;\n};\n\nconst firstName = requiredString('firstName', 80);\nconst lastName = requiredString('lastName', 80);\nconst company = requiredString('company', 120);\nconst emailRaw = requiredString('email', 254);\nconst fleetSize = requiredString('fleetSize', 20);\nconst challenge = requiredString('challenge', 2000);\nconst language = requiredString('language', 8);\nconst source = requiredString('source', 80);\nconst submittedAt = requiredString('submittedAt', 64);\nconst phone = optionalString('phone', 40);\nconst currentSoftware = optionalString('currentSoftware', 120);\n\nif (\n  !firstName ||\n  !lastName ||\n  !company ||\n  !emailRaw ||\n  !fleetSize ||\n  !challenge ||\n  !language ||\n  !source ||\n  !submittedAt ||\n  phone === null ||\n  currentSoftware === null\n) {\n  return reject(400, 'invalid_request');\n}\n\nconst email = emailRaw.toLowerCase();\nif (!EMAIL_RE.test(email)) {\n  return reject(400, 'invalid_request');\n}\n\nif (!FLEET_SIZES.has(fleetSize) || !LANGUAGES.has(language)) {\n  return reject(400, 'invalid_request');\n}\n\nif (source !== EXPECTED_SOURCE) {\n  return reject(400, 'invalid_request');\n}\n\nif (Number.isNaN(Date.parse(submittedAt))) {\n  return reject(400, 'invalid_request');\n}\n\nconst receivedAt = new Date().toISOString();\nconst lead = {\n  firstName,\n  lastName,\n  fullName: (firstName + ' ' + lastName).trim(),\n  company,\n  email,\n  phone,\n  fleetSize,\n  currentSoftware,\n  challenge,\n  language,\n  source,\n  submittedAt,\n  receivedAt,\n};\n\nreturn [\n  {\n    json: {\n      valid: true,\n      status: 200,\n      lead,\n      summary: {\n        language: lead.language,\n        fleetSize: lead.fleetSize,\n        source: lead.source,\n        submittedAt: lead.submittedAt,\n        receivedAt: lead.receivedAt,\n        hasPhone: Boolean(lead.phone),\n        hasCurrentSoftware: Boolean(lead.currentSoftware),\n      },\n    },\n  },\n];"
+      },
+      "id": "a1000001-0000-4000-8000-000000000003",
+      "name": "Validate And Normalize Lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        280,
+        300
+      ],
+      "notes": "Validates the website webhook contract, rejects unexpected fields, and builds the normalized lead object. Avoid logging full lead PII."
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a1000001-0000-4000-8000-0000000000c1",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a1000001-0000-4000-8000-000000000004",
+      "name": "Lead Valid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        560,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1000001-0000-4000-8000-0000000000a1",
+              "name": "firstName",
+              "value": "={{ $json.lead.firstName }}",
+              "type": "string"
+            },
+            {
+              "id": "a1000001-0000-4000-8000-0000000000a2",
+              "name": "lastName",
+              "value": "={{ $json.lead.lastName }}",
+              "type": "string"
+            },
+            {
+              "id": "a1000001-0000-4000-8000-0000000000a3",
+              "name": "fullName",
+              "value": "={{ $json.lead.fullName }}",
+              "type": "string"
+            },
+            {
+              "id": "a1000001-0000-4000-8000-0000000000a4",
+              "name": "company",
+              "value": "={{ $json.lead.company }}",
+              "type": "string"
+            },
+            {
+              "id": "a1000001-0000-4000-8000-0000000000a5",
+              "name": "email",
+              "value": "={{ $json.lead.email }}",
+              "type": "string"
+            },
+            {
+              "id": "a1000001-0000-4000-8000-0000000000a6",
+              "name": "phone",
+              "value": "={{ $json.lead.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "a1000001-0000-4000-8000-0000000000a7",
+              "name": "fleetSize",
+              "value": "={{ $json.lead.fleetSize }}",
+              "type": "string"
+            },
+            {
+              "id": "a1000001-0000-4000-8000-0000000000a8",
+              "name": "currentSoftware",
+              "value": "={{ $json.lead.currentSoftware }}",
+              "type": "string"
+            },
+            {
+              "id": "a1000001-0000-4000-8000-0000000000a9",
+              "name": "challenge",
+              "value": "={{ $json.lead.challenge }}",
+              "type": "string"
+            },
+            {
+              "id": "a1000001-0000-4000-8000-0000000000aa",
+              "name": "language",
+              "value": "={{ $json.lead.language }}",
+              "type": "string"
+            },
+            {
+              "id": "a1000001-0000-4000-8000-0000000000ab",
+              "name": "source",
+              "value": "={{ $json.lead.source }}",
+              "type": "string"
+            },
+            {
+              "id": "a1000001-0000-4000-8000-0000000000ac",
+              "name": "submittedAt",
+              "value": "={{ $json.lead.submittedAt }}",
+              "type": "string"
+            },
+            {
+              "id": "a1000001-0000-4000-8000-0000000000ad",
+              "name": "receivedAt",
+              "value": "={{ $json.lead.receivedAt }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1000001-0000-4000-8000-000000000005",
+      "name": "Normalized Lead",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        820,
+        200
+      ],
+      "notes": "Normalized lead ready for a future storage or notification node. No approved Ekilibrium storage/email integration exists in this repository yet."
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true } }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "a1000001-0000-4000-8000-000000000006",
+      "name": "Respond Accepted",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1080,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: false, error: $json.error || 'invalid_request' } }}",
+        "options": {
+          "responseCode": "={{ $json.status || 400 }}"
+        }
+      },
+      "id": "a1000001-0000-4000-8000-000000000007",
+      "name": "Respond Rejected",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        820,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Next connections (manual)\n1. Attach Header Auth credential **Ekilibrium Webhook Secret**\n2. Activate workflow and copy Production URL\n3. Set Netlify `CONTACT_N8N_WEBHOOK_URL` to that URL\n4. Set Netlify `CONTACT_WEBHOOK_SECRET` to the same secret value\n5. Add durable storage + operator email only with approved Ekilibrium credentials",
+        "height": 320,
+        "width": 380,
+        "color": 5
+      },
+      "id": "a1000001-0000-4000-8000-000000000008",
+      "name": "Activation Notes",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        360
+      ]
+    }
+  ],
+  "connections": {
+    "Rental Tech Audit Webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate And Normalize Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate And Normalize Lead": {
+      "main": [
+        [
+          {
+            "node": "Lead Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead Valid?": {
+      "main": [
+        [
+          {
+            "node": "Normalized Lead",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Rejected",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalized Lead": {
+      "main": [
+        [
+          {
+            "node": "Respond Accepted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "versionId": "00000000-0000-4000-8000-000000000001",
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "description": "Production-ready intake workflow for Ekilibrium Rental Tech Audit leads forwarded from POST /api/contact."
+  },
+  "tags": [
+    {
+      "name": "ekilibrium"
+    },
+    {
+      "name": "lead-intake"
+    }
+  ]
+}
