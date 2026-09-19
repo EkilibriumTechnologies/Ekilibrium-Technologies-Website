@@ -45,11 +45,14 @@ npm start
 Create a `.env.local` file in the root directory:
 
 ```env
-# Form submission endpoint (optional - defaults to /api/submit-lead)
-NEXT_PUBLIC_FORM_ENDPOINT=https://your-form-handler.com/submit
+# Server-side only. Do not prefix with NEXT_PUBLIC_.
+CONTACT_N8N_WEBHOOK_URL=
+CONTACT_WEBHOOK_SECRET=
 ```
 
 See `.env.example` for reference.
+
+`CONTACT_N8N_WEBHOOK_URL` is required in production. If it is missing, `/api/contact` fails closed and the form shows its existing error state. `CONTACT_WEBHOOK_SECRET` is optional; when set, it is sent to n8n as `X-Ekilibrium-Webhook-Secret`.
 
 ## Routes
 
@@ -91,27 +94,36 @@ The lead form is located in:
 
 ### Form Submission
 
-Forms are configured to POST to an endpoint defined by `NEXT_PUBLIC_FORM_ENDPOINT` environment variable (defaults to `/api/submit-lead`).
+Both forms POST JSON to the same-origin API route `POST /api/contact`. The browser never receives the n8n webhook URL.
 
-**To connect your form handler:**
+`/api/contact` validates the payload with Zod, applies honeypot and best-effort in-memory rate limiting, then forwards accepted leads server-side to `CONTACT_N8N_WEBHOOK_URL`.
 
-1. Set `NEXT_PUBLIC_FORM_ENDPOINT` in `.env.local`
-2. Or implement `/api/submit-lead` endpoint in `src/pages/api/submit-lead.ts`
+**To connect lead intake:**
+
+1. Set `CONTACT_N8N_WEBHOOK_URL` in `.env.local` (and in the Netlify dashboard for production)
+2. Optionally set `CONTACT_WEBHOOK_SECRET`
+3. Keep both values server-side only — never use a `NEXT_PUBLIC_` prefix
 
 **Form fields:**
-- `name` (required)
-- `email` (required, validated)
-- `phone` (required)
+- `firstName` (required)
+- `lastName` (required)
 - `company` (required)
-- `fleetSize` (required, select)
+- `email` (required, validated)
+- `phone` (optional)
+- `fleetSize` (required, select: `1-5`, `6-10`, `11-25`, `26-50`, `51-100`, `100+`)
 - `currentSoftware` (optional)
 - `challenge` (required, textarea)
+- `language` (`en` on the English form, `es` on the Spanish form)
+- `website` (honeypot; visually hidden; if populated the API returns success and does not forward the lead)
 
 **Response states:**
 - Idle: default form state
 - Submitting: loading state during POST
 - Success: confirmation message displayed
-- Error: error message with retry option
+- Error: localized error message with retry option
+
+**Rate limiting limitations:**
+In-memory serverless rate limiting is best-effort only. Serverless instances do not share counters, and cold starts reset the Map. On Netlify, the client connection IP (`x-nf-client-connection-ip`) is preferred when present; `X-Forwarded-For` is only a fallback (first hop), then the socket remote address for local development. This is not a substitute for CDN/WAF limits or a shared store.
 
 ## Project Structure
 
@@ -174,7 +186,7 @@ Tailwind breakpoints: `sm:` (640px), `md:` (768px), `lg:` (1024px), `xl:` (1280p
 - React Hook Form + Zod (form validation)
 
 **Optional:**
-- Form submission service (configure via NEXT_PUBLIC_FORM_ENDPOINT)
+- n8n webhook for lead intake (configure via `CONTACT_N8N_WEBHOOK_URL` and optional `CONTACT_WEBHOOK_SECRET`)
 
 ## SEO
 
@@ -200,7 +212,7 @@ This project is intended to be deployed on Netlify. Hosting is not preconfigured
 
 1. Push to GitHub
 2. Import the project in Netlify
-3. Set environment variables in the Netlify dashboard if needed
+3. Set `CONTACT_N8N_WEBHOOK_URL` and optional `CONTACT_WEBHOOK_SECRET` in the Netlify dashboard
 4. Deploy with Netlify's Next.js runtime (`npm run build`)
 
 ### Other Platforms
