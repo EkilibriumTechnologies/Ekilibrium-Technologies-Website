@@ -100,9 +100,17 @@ Both forms POST JSON to the same-origin API route `POST /api/contact`. The brows
 
 **To connect lead intake:**
 
-1. Set `CONTACT_N8N_WEBHOOK_URL` in `.env.local` (and in the Netlify dashboard for production)
-2. Optionally set `CONTACT_WEBHOOK_SECRET`
-3. Keep both values server-side only — never use a `NEXT_PUBLIC_` prefix
+1. Import `n8n/ekilibrium-rental-tech-audit-lead.json` into your n8n instance
+2. Create an n8n **Header Auth** credential named `Ekilibrium Webhook Secret`:
+   - Header Name: `X-Ekilibrium-Webhook-Secret`
+   - Value: a strong shared secret (never commit this value)
+3. Attach that credential to the **Rental Tech Audit Webhook** node and activate the workflow
+4. Copy the workflow **Production** webhook URL (path ends with `/webhook/ekilibrium-rental-tech-audit-lead`)
+5. Set `CONTACT_N8N_WEBHOOK_URL` in `.env.local` and in the Netlify dashboard to that Production URL
+6. Set `CONTACT_WEBHOOK_SECRET` to the same secret value used in the Header Auth credential
+7. Keep both values server-side only — never use a `NEXT_PUBLIC_` prefix
+
+This repository does not yet include an approved durable storage or operator-email integration for n8n. Until those are connected in n8n with real Ekilibrium credentials, accepted leads are retained only in n8n execution history.
 
 **Form fields:**
 - `firstName` (required)
@@ -128,6 +136,9 @@ In-memory serverless rate limiting is best-effort only. Serverless instances do 
 ## Project Structure
 
 ```
+n8n/
+└── ekilibrium-rental-tech-audit-lead.json  # Importable n8n lead-intake workflow
+
 src/
 ├── components/
 │   ├── ui/              # shadcn/ui components
@@ -142,10 +153,11 @@ src/
 │   ├── es.tsx           # Spanish homepage
 │   ├── _app.tsx         # App wrapper
 │   ├── _document.tsx    # HTML document
-│   └── api/             # API routes (form handler goes here)
+│   └── api/             # API routes (including contact lead intake)
 ├── styles/
 │   └── globals.css      # Global styles + design tokens
 └── lib/
+    ├── contact.ts       # Contact validation + webhook forwarding
     └── utils.ts         # Utility functions
 
 public/
@@ -212,7 +224,7 @@ This project is intended to be deployed on Netlify. Hosting is not preconfigured
 
 1. Push to GitHub
 2. Import the project in Netlify
-3. Set `CONTACT_N8N_WEBHOOK_URL` and optional `CONTACT_WEBHOOK_SECRET` in the Netlify dashboard
+3. Import and activate `n8n/ekilibrium-rental-tech-audit-lead.json`, then set `CONTACT_N8N_WEBHOOK_URL` and `CONTACT_WEBHOOK_SECRET` in the Netlify dashboard
 4. Deploy with Netlify's Next.js runtime (`npm run build`)
 
 ### Other Platforms
