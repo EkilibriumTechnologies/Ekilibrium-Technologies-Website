@@ -52,7 +52,10 @@ export function HeaderEs() {
         </div>
 
         <button
+          type="button"
           className="lg:hidden p-2"
+          aria-expanded={mobileMenuOpen}
+          aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? (

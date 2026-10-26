@@ -1,0 +1,8 @@
+# Next.js 15 Pages Router. Netlify installs the Next.js runtime automatically.
+# This file prepares the repository. It does not create a Netlify site.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"

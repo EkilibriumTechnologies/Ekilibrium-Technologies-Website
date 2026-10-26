@@ -37,6 +37,12 @@ export function LeadFormSection() {
       website: fields.website,
     };
 
+    if (!fleetSize) {
+      setError("Select a fleet size before submitting.");
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -53,8 +59,8 @@ export function LeadFormSection() {
       } else {
         setError("There was a problem submitting your request. Please try again.");
       }
-    } catch (error) {
-      console.error("Form submission error:", error);
+    } catch {
+      console.error("contact_form_submit_failed");
       setError("There was a problem submitting your request. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -172,7 +178,7 @@ export function LeadFormSection() {
                 <div className="space-y-2">
                   <Label htmlFor="fleetSize">Fleet Size</Label>
                   <Select name="fleetSize" required onValueChange={setFleetSize}>
-                    <SelectTrigger className="border-border">
+                    <SelectTrigger id="fleetSize" className="border-border">
                       <SelectValue placeholder="Select fleet size" />
                     </SelectTrigger>
                     <SelectContent>
@@ -209,7 +215,10 @@ export function LeadFormSection() {
               </div>
 
               {error && (
-                <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm">
+                <div
+                  role="alert"
+                  className="p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm"
+                >
                   {error}
                 </div>
               )}

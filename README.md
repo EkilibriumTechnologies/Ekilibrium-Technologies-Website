@@ -220,12 +220,12 @@ Tailwind breakpoints: `sm:` (640px), `md:` (768px), `lg:` (1024px), `xl:` (1280p
 
 ### Netlify (Recommended)
 
-This project is intended to be deployed on Netlify. Hosting is not preconfigured in the repository; connect the GitHub repo in Netlify and use the standard Next.js build.
+`netlify.toml` sets the Next.js 15 build (`npm run build`, publish `.next`, Node 22). Netlify installs the Next.js runtime automatically. No Netlify site is linked from this repository yet, and `ekilibriumtechnologies.com` still points at the existing Vercel site. Do not change production DNS until a Netlify deploy is approved.
 
-1. Push to GitHub
-2. Import the project in Netlify
-3. Import and activate `n8n/ekilibrium-rental-tech-audit-lead.json`, then set `CONTACT_N8N_WEBHOOK_URL` and `CONTACT_WEBHOOK_SECRET` in the Netlify dashboard
-4. Deploy with Netlify's Next.js runtime (`npm run build`)
+1. Create a site on the existing Ekilibrium Technologies Netlify team and connect `EkilibriumTechnologies/Ekilibrium-Technologies-Website` with production branch `main`
+2. Import and activate `n8n/ekilibrium-rental-tech-audit-lead.json`, then set `CONTACT_N8N_WEBHOOK_URL` and `CONTACT_WEBHOOK_SECRET` in the Netlify dashboard
+3. Deploy with Netlify's Next.js runtime
+4. Attach the production domain only after the preview deploy is accepted
 
 ### Other Platforms
 

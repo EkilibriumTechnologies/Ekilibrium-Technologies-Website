@@ -21,6 +21,8 @@ export default function Home() {
       <SEO
         title="Ekilibrium Technologies | Rental Technology & Automation"
         description="Software, automation, AI and integrations for independent vehicle rental businesses. Specializing in car, Jeep, exotic, van, golf cart, and ATV rentals."
+        url="/"
+        locale="en"
       />
       <style jsx global>{`
         section[id] {

@@ -43,7 +43,7 @@ export function StreetRentalSectionEs() {
         <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="space-y-6 md:space-y-8">
             <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-accent/10 border border-accent/20">
-              <span className="text-xs sm:text-sm font-medium text-accent">Producto Principal</span>
+              <span className="text-xs sm:text-sm font-medium text-accent">Construido por Ekilibrium</span>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground leading-tight">
               Street Rental
