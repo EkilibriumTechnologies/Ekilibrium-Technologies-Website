@@ -1,64 +1,105 @@
-import { TrendingUp, Users, DollarSign, Clock, ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { ArrowRight, MapPin } from "lucide-react";
+import Link from "next/link";
 
 export function CaseStudySectionEs() {
-  const metrics = [
-    { icon: TrendingUp, label: "Aumento en Reservas", value: "156%" },
-    { icon: Users, label: "Reducción en Abandonos", value: "67%" },
-    { icon: DollarSign, label: "Crecimiento de Ingresos", value: "$180K" },
-    { icon: Clock, label: "Ahorro de Horas Admin", value: "25hrs/sem" },
+  const architecture = [
+    "16 VEHÍCULOS",
+    "RESERVA DIRECTA",
+    "DISPONIBILIDAD Y PRECIOS",
+    "PAGOS Y DEPÓSITOS",
+    "CHECK-IN DIGITAL",
+    "SMARTCAR / LOCKBOX / ENTREGA EN PERSONA",
+    "AUTOMATIZACIÓN AL CLIENTE",
+    "DEVOLUCIÓN Y LIQUIDACIÓN DEL DEPÓSITO",
+  ];
+
+  const capabilities = [
+    "Reservas directas en línea",
+    "Gestión de flota",
+    "Precios y disponibilidad",
+    "Recorrido digital del cliente",
+    "Depósitos de seguridad",
+    "Check-in digital",
+    "Comunicación con el cliente",
+    "Asistencia con IA",
+    "Vehículos conectados",
+    "Entrega remota",
+    "Integraciones de sistemas",
   ];
 
   return (
-    <section id="case-study" className="py-16 sm:py-20 md:py-32 bg-background">
+    <section id="case-study" className="py-16 sm:py-20 md:py-32">
       <div className="container px-4 sm:px-6">
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div className="space-y-6 md:space-y-8">
-            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-accent/10 border border-accent/20">
-              <span className="text-xs sm:text-sm font-medium text-accent">Caso de Estudio</span>
+        <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+          <div className="inline-block mb-4 md:mb-6">
+            <span className="text-xs font-mono font-medium text-accent uppercase tracking-wider px-3 py-1 bg-accent/10 rounded-full border border-accent/20">
+              OPERACIONES REALES DE RENTA
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-4 md:mb-6">
+            Construido alrededor de un negocio de renta real.
+          </h2>
+          <p className="text-base md:text-lg text-muted-foreground">
+            La experiencia de Ekilibrium en tecnología de renta proviene de operar y modernizar una empresa independiente de renta.
+          </p>
+        </div>
+
+        <div className="bg-card rounded-lg border border-border shadow-lg overflow-hidden max-w-5xl mx-auto">
+          <div className="bg-muted/50 px-4 sm:px-6 py-4 border-b border-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-accent flex-shrink-0" />
+              <span className="text-base sm:text-lg font-heading font-semibold text-foreground">
+                Jeep Adventures Puerto Rico
+              </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground leading-tight">
-              Jeep Adventures PR
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              Operador de renta de Jeeps en Puerto Rico que pasó de reservas telefónicas a una plataforma completa de reservas en línea con procesamiento automatizado de pagos y agentes de IA.
-            </p>
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">El Desafío:</strong> Gestión manual de reservas, dobles reservas, consultas perdidas después de horas y sin presencia en línea en un mercado impulsado por turistas.
-            </p>
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">La Solución:</strong> Sistema completo de reservas con disponibilidad en tiempo real, pagos automatizados, asistente de reservas con IA y portal del cliente. Implementado en 6 semanas.
-            </p>
+            <div className="text-xs sm:text-sm text-muted-foreground font-mono">
+              16 VEHÍCULOS
+            </div>
           </div>
 
-          <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4 md:gap-6">
-              {metrics.map((metric, index) => (
-                <Card key={index} className="p-4 md:p-6 bg-card border-border text-center">
-                  <metric.icon className="h-6 w-6 sm:h-8 sm:w-8 text-accent mx-auto mb-2 md:mb-3" />
-                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-1 font-mono">{metric.value}</div>
-                  <div className="text-xs sm:text-sm text-muted-foreground break-words">{metric.label}</div>
-                </Card>
-              ))}
+          <div className="p-5 md:p-6 lg:p-8">
+            <div className="mb-6 md:mb-8">
+              <h3 className="text-xs sm:text-sm font-semibold text-accent uppercase tracking-wide mb-3 md:mb-4">
+                ARQUITECTURA DE RENTA
+              </h3>
+              <div className="space-y-2 sm:space-y-0 sm:flex sm:flex-wrap sm:items-center sm:gap-3">
+                {architecture.map((step, index) => (
+                  <div key={index} className="flex items-center">
+                    <div className="px-3 sm:px-4 py-2 bg-muted/50 rounded-lg border border-border text-xs sm:text-sm font-medium text-foreground break-words">
+                      {step}
+                    </div>
+                    {index < architecture.length - 1 && (
+                      <ArrowRight className="hidden sm:block h-4 w-4 text-muted-foreground mx-2 flex-shrink-0" />
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <Card className="p-5 md:p-6 bg-accent/5 border-accent/30">
-              <p className="text-sm md:text-base text-foreground italic leading-relaxed break-words">
-                "Pasamos de perder reservas por la noche a capturar cada lead. El asistente de IA maneja preguntas básicas mientras dormimos, y el sistema de reservas evita conflictos de programación. Nuestros ingresos crecieron 180K en el primer año."
-              </p>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-4">
-                — Carlos Méndez, Propietario, Jeep Adventures PR
-              </p>
-            </Card>
+            <div>
+              <h3 className="text-xs sm:text-sm font-semibold text-accent uppercase tracking-wide mb-3 md:mb-4">
+                CAPACIDADES OPERATIVAS
+              </h3>
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
+                {capabilities.map((capability, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-2 text-xs sm:text-sm text-foreground"
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></div>
+                    <span className="break-words">{capability}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="text-center mt-6 md:mt-8">
           <Button variant="outline" asChild className="border-accent text-accent hover:bg-accent/10 w-full sm:w-auto">
             <Link href="#contact">
-              Ver Caso de Estudio
+              Ver caso de estudio
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

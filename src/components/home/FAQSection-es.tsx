@@ -8,9 +8,9 @@ import {
 export function FAQSectionEs() {
   const faqs = [
     {
-      question: "¿Cómo se diferencia Ekilibrium de otras plataformas de software de renta?",
+      question: "¿Tengo que reemplazar mi software de renta actual?",
       answer:
-        "No somos una plataforma SaaS genérica. Construimos soluciones personalizadas específicamente para operaciones de renta de vehículos. Cada sistema se adapta a tus flujos de trabajo exactos, no te forzamos a conformarte con plantillas genéricas.",
+        "No necesariamente. Ekilibrium puede conectar y mejorar los sistemas que ya usas. Solo recomendamos software a medida cuando las herramientas actuales no cubren el flujo de trabajo. Street Rental es el producto SaaS propio de Ekilibrium para operadores independientes.",
     },
     {
       question: "¿Cuál es el tamaño de flota mínimo con el que trabajan?",
@@ -20,7 +20,7 @@ export function FAQSectionEs() {
     {
       question: "¿Cuánto tiempo toma la implementación?",
       answer:
-        "La implementación típica toma 4-8 semanas dependiendo de la complejidad. Sistemas de reservas básicos pueden estar en vivo en 4 semanas. Soluciones completas con agentes de IA e integraciones múltiples usualmente toman 6-8 semanas.",
+        "Depende del sistema actual y del alcance. El tiempo se define en la evaluación tecnológica, sin un plazo fijo publicado.",
     },
     {
       question: "¿Necesito cambiar mi software de contabilidad o procesador de pagos?",

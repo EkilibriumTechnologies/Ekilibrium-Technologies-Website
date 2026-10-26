@@ -27,7 +27,7 @@ export function WhyEkilibriumSectionEs() {
             Por Qué Ekilibrium
           </h2>
           <p className="text-lg text-muted-foreground">
-            No somos una plataforma SaaS genérica. Somos desarrolladores que construyen tecnología de renta específica para operadores independientes.
+            Ekilibrium diseña automatización e implementaciones para operadores independientes. Street Rental es el producto SaaS aparte para la operación de renta.
           </p>
         </div>
 

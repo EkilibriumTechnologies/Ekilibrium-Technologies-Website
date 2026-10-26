@@ -17,22 +17,22 @@ export function AboutSectionEs() {
               <User className="h-8 w-8 text-accent" />
             </div>
             <div>
-              <h3 className="text-2xl font-semibold text-foreground mb-2">Fundador y Desarrollador Principal</h3>
-              <p className="text-lg text-muted-foreground">Michael Brito</p>
+              <h3 className="text-2xl font-semibold text-foreground mb-2">Llarod Hernaiz</h3>
+              <p className="text-lg text-muted-foreground">Fundador</p>
             </div>
           </div>
 
           <div className="space-y-6 text-muted-foreground leading-relaxed">
             <p>
-              Ekilibrium Technologies fue fundada para llevar tecnología de nivel empresarial a operadores independientes de renta de vehículos — el tipo de software que las grandes empresas tienen internamente, pero construido específicamente para negocios más pequeños.
+              Ekilibrium Technologies se fundó para atender los desafíos operativos de las empresas independientes de renta de vehículos.
             </p>
 
             <p>
-              Después de años construyendo sistemas empresariales para compañías Fortune 500, vi que los operadores independientes de renta enfrentaban los mismos desafíos operativos pero carecían del acceso a soluciones tecnológicas adecuadas. No necesitaban software empresarial complejo — necesitaban herramientas precisas construidas para sus flujos de trabajo específicos.
+              El enfoque combina experiencia en gestión de producto, conocimiento de operaciones y experiencia práctica en la industria de renta para construir tecnología que resuelve problemas reales de operación.
             </p>
 
             <p>
-              Trabajamos directamente con operadores de renta para construir software que se ajusta a cómo realmente funcionan sus negocios. No plantillas genéricas, no suscripciones SaaS infladas — solo tecnología sólida que resuelve problemas reales de operaciones de renta.
+              En lugar de obligar a los operadores a reemplazar sistemas que ya funcionan, Ekilibrium se concentra en integraciones, automatización y desarrollo a medida donde el software de renta existente no alcanza.
             </p>
           </div>
 
