@@ -21,6 +21,8 @@ export default function EsHome() {
       <SEO
         title="Ekilibrium Technologies | Tecnología y Automatización para Rentals"
         description="Software, automatización, IA e integraciones para negocios independientes de renta de vehículos. Especializados en renta de autos, Jeeps, exóticos, vans, carritos de golf y ATVs."
+        url="/es"
+        locale="es"
       />
       <style jsx global>{`
         section[id] {

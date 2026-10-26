@@ -1,67 +1,53 @@
-import Head from 'next/head';
+import Head from "next/head";
+import { absoluteUrl } from "@/lib/site";
 
 interface SEOProps {
   title?: string;
   description?: string;
   image?: string;
   url?: string;
+  locale?: "en" | "es";
 }
 
-// SEO elements that can be used in _document.tsx (returns JSX without Head wrapper)
-export function SEOElements({
-  title = "Ekilibrium Technologies | Rental Technology & Automation",
-  description = "Enterprise software, automation, AI and integrations for independent vehicle rental businesses. Specializing in car, Jeep, exotic, van, golf cart, and ATV rentals.",
-  image = "/og-image.png",
-  url,
-}: SEOProps) {
-  return (
-    <>
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <link rel="icon" href="/favicon.ico" />
+const DEFAULT_TITLE = "Ekilibrium Technologies | Rental Technology & Automation";
+const DEFAULT_DESCRIPTION =
+  "Enterprise software, automation, AI and integrations for independent vehicle rental businesses. Specializing in car, Jeep, exotic, van, golf cart, and ATV rentals.";
 
-      {/* Open Graph */}
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      {image && <meta property="og:image" content={image} />}
-      {url && <meta property="og:url" content={url} />}
-      <meta property="og:type" content="website" />
-
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      {image && <meta name="twitter:image" content={image} />}
-    </>
-  );
-}
-
-// SEO component for use in pages/_app.tsx or individual pages (uses next/head)
-// Note: Flattened structure (no fragment) for better Next.js Head compatibility during hot reload
 export function SEO({
-  title = "Ekilibrium Technologies | Rental Technology & Automation",
-  description = "Enterprise software, automation, AI and integrations for independent vehicle rental businesses. Specializing in car, Jeep, exotic, van, golf cart, and ATV rentals.",
+  title = DEFAULT_TITLE,
+  description = DEFAULT_DESCRIPTION,
   image = "/og-image.png",
-  url,
+  url = "/",
+  locale = "en",
 }: SEOProps) {
+  const canonical = absoluteUrl(url);
+  const imageUrl = absoluteUrl(image);
+  const englishUrl = absoluteUrl("/");
+  const spanishUrl = absoluteUrl("/es");
+  const ogLocale = locale === "es" ? "es_ES" : "en_US";
+  const alternateLocale = locale === "es" ? "en_US" : "es_ES";
+
   return (
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="canonical" href={canonical} />
+      <link rel="alternate" hrefLang="en" href={englishUrl} />
+      <link rel="alternate" hrefLang="es" href={spanishUrl} />
+      <link rel="alternate" hrefLang="x-default" href={englishUrl} />
 
-      {/* Open Graph */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      {image && <meta property="og:image" content={image} />}
-      {url && <meta property="og:url" content={url} />}
+      <meta property="og:image" content={imageUrl} />
+      <meta property="og:url" content={canonical} />
       <meta property="og:type" content="website" />
+      <meta property="og:locale" content={ogLocale} />
+      <meta property="og:locale:alternate" content={alternateLocale} />
 
-      {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      {image && <meta name="twitter:image" content={image} />}
+      <meta name="twitter:image" content={imageUrl} />
     </Head>
   );
 }
