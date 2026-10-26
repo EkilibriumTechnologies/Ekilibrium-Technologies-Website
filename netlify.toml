@@ -1,8 +1,12 @@
-# Next.js 15 Pages Router. Netlify installs the Next.js runtime automatically.
-# This file prepares the repository. It does not create a Netlify site.
+# Next.js 15 Pages Router. Publish stays .next so the runtime can
+# turn pages and /api/contact into Netlify functions.
+# The plugin package is resolved by Netlify at build time.
 [build]
   command = "npm run build"
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "22"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
