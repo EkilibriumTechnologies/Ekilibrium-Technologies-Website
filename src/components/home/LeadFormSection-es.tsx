@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { formText, submitRentalTechAuditForm } from "@/lib/rental-tech-audit-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,53 +17,51 @@ export function LeadFormSectionEs() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fleetSize, setFleetSize] = useState("");
+  const submitLock = useRef(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
-
-    const formData = new FormData(e.currentTarget);
-    const fields = Object.fromEntries(formData.entries());
-    const data = {
-      firstName: fields.firstName,
-      lastName: fields.lastName,
-      company: fields.company,
-      email: fields.email,
-      phone: fields.phone,
-      fleetSize,
-      currentSoftware: fields.currentSoftware,
-      challenge: fields.challenge,
-      language: "es" as const,
-      website: fields.website,
-    };
-
-    if (!fleetSize) {
-      setError("Selecciona el tamaño de la flota antes de enviar.");
-      setIsSubmitting(false);
+    if (submitLock.current) {
       return;
     }
 
+    submitLock.current = true;
+    setIsSubmitting(true);
+    setError(null);
+    const form = e.currentTarget;
+
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+      const outcome = await submitRentalTechAuditForm({
+        firstName: formText(form, "firstName"),
+        lastName: formText(form, "lastName"),
+        company: formText(form, "company"),
+        email: formText(form, "email"),
+        phone: formText(form, "phone"),
+        fleetSize,
+        currentSoftware: formText(form, "currentSoftware"),
+        challenge: formText(form, "challenge"),
+        language: "es",
+        website: formText(form, "website"),
+        botField: formText(form, "bot-field"),
       });
 
-      if (response.ok) {
+      if (outcome.status === "success") {
         setIsSubmitted(true);
         setFleetSize("");
-        (e.target as HTMLFormElement).reset();
-      } else {
-        setError("Hubo un problema al enviar tu solicitud. Por favor intenta de nuevo.");
+        form.reset();
+        return;
       }
-    } catch {
-      console.error("contact_form_submit_failed");
-      setError("Hubo un problema al enviar tu solicitud. Por favor intenta de nuevo.");
+
+      if (outcome.reason === "rejected") {
+        console.error("contact_form_submit_failed");
+      }
+      setError(
+        outcome.reason === "fleetSize"
+          ? "Selecciona el tamaño de la flota antes de enviar."
+          : "Hubo un problema al enviar tu solicitud. Por favor intenta de nuevo.",
+      );
     } finally {
+      submitLock.current = false;
       setIsSubmitting(false);
     }
   };
@@ -120,7 +119,15 @@ export function LeadFormSectionEs() {
           </div>
 
           <div className="bg-card rounded-lg border border-border shadow-lg p-8 md:p-10">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              name="rental-tech-audit"
+              method="POST"
+              action="/__forms.html"
+              onSubmit={handleSubmit}
+              className="space-y-6"
+            >
+              <input type="hidden" name="form-name" value="rental-tech-audit" />
+              <input type="hidden" name="language" value="es" />
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="firstName">Nombre *</Label>
@@ -177,7 +184,7 @@ export function LeadFormSectionEs() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="fleetSize">Tamaño de Flota *</Label>
-                  <Select name="fleetSize" required onValueChange={setFleetSize}>
+                  <Select required value={fleetSize} onValueChange={setFleetSize}>
                     <SelectTrigger id="fleetSize" className="border-border">
                       <SelectValue placeholder="Selecciona tamaño de flota" />
                     </SelectTrigger>
@@ -227,6 +234,7 @@ export function LeadFormSectionEs() {
                 type="submit"
                 size="lg"
                 disabled={isSubmitting}
+                aria-busy={isSubmitting}
                 className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
               >
                 {isSubmitting ? "Enviando..." : "Reservar Evaluación Tecnológica"}
@@ -240,6 +248,14 @@ export function LeadFormSectionEs() {
                 <input
                   id="website"
                   name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+                <label htmlFor="bot-field">No llenes este campo</label>
+                <input
+                  id="bot-field"
+                  name="bot-field"
                   type="text"
                   tabIndex={-1}
                   autoComplete="off"

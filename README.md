@@ -52,7 +52,9 @@ CONTACT_WEBHOOK_SECRET=
 
 See `.env.example` for reference.
 
-`CONTACT_N8N_WEBHOOK_URL` is required in production. If it is missing, `/api/contact` fails closed and the form shows its existing error state. `CONTACT_WEBHOOK_SECRET` is optional; when set, it is sent to n8n as `X-Ekilibrium-Webhook-Secret`.
+Production Rental Tech Audit submissions are stored by Netlify Forms. They do not call `/api/contact` and they do not use these variables.
+
+`CONTACT_N8N_WEBHOOK_URL` and `CONTACT_WEBHOOK_SECRET` remain for a future n8n phase. `/api/contact` still fails closed when the webhook URL is missing. Do not set the webhook URL to route live form submissions through n8n. When the secret is set, `/api/contact` sends it as `X-Ekilibrium-Webhook-Secret`.
 
 ## Routes
 
@@ -94,11 +96,11 @@ The lead form is located in:
 
 ### Form Submission
 
-Both forms POST JSON to the same-origin API route `POST /api/contact`. The browser never receives the n8n webhook URL.
+Both forms validate in the browser, then POST URL-encoded fields to Netlify Forms at `/__forms.html`. The static definition is `public/__forms.html` (`rental-tech-audit`). Netlify stores every accepted lead and emails `consulting@ekilibriumtechnologies.com`. Prospects do not receive an automated email.
 
-`/api/contact` validates the payload with Zod, applies honeypot and best-effort in-memory rate limiting, then forwards accepted leads server-side to `CONTACT_N8N_WEBHOOK_URL`.
+The browser never receives an n8n webhook URL. `/api/contact` and `n8n/ekilibrium-rental-tech-audit-lead.json` stay in the repo for a future n8n phase and are not on the production submit path.
 
-**To connect lead intake:**
+**Future n8n connection (not used for live leads):**
 
 1. Import `n8n/ekilibrium-rental-tech-audit-lead.json` into your n8n instance
 2. Create an n8n **Header Auth** credential named `Ekilibrium Webhook Secret`:
@@ -110,8 +112,6 @@ Both forms POST JSON to the same-origin API route `POST /api/contact`. The brows
 6. Set `CONTACT_WEBHOOK_SECRET` to the same secret value used in the Header Auth credential
 7. Keep both values server-side only — never use a `NEXT_PUBLIC_` prefix
 
-This repository does not yet include an approved durable storage or operator-email integration for n8n. Until those are connected in n8n with real Ekilibrium credentials, accepted leads are retained only in n8n execution history.
-
 **Form fields:**
 - `firstName` (required)
 - `lastName` (required)
@@ -122,7 +122,10 @@ This repository does not yet include an approved durable storage or operator-ema
 - `currentSoftware` (optional)
 - `challenge` (required, textarea)
 - `language` (`en` on the English form, `es` on the Spanish form)
-- `website` (honeypot; visually hidden; if populated the API returns success and does not forward the lead)
+- `website` (honeypot; visually hidden; if populated the form shows success and does not submit)
+- `bot-field` (Netlify honeypot; visually hidden; if populated the form shows success and does not submit)
+
+Netlify stores `name`, `email`, `phone`, `company`, `fleetSize`, `businessNeeds`, plus first name, last name, current software, and language. `businessNeeds` is the operational challenge. The notification email uses those submitted fields. There is no autoresponder to the prospect.
 
 **Response states:**
 - Idle: default form state
@@ -130,8 +133,8 @@ This repository does not yet include an approved durable storage or operator-ema
 - Success: confirmation message displayed
 - Error: localized error message with retry option
 
-**Rate limiting limitations:**
-In-memory serverless rate limiting is best-effort only. Serverless instances do not share counters, and cold starts reset the Map. On Netlify, the client connection IP (`x-nf-client-connection-ip`) is preferred when present; `X-Forwarded-For` is only a fallback (first hop), then the socket remote address for local development. This is not a substitute for CDN/WAF limits or a shared store.
+**Spam protection:**
+Live submissions keep the hidden `website` honeypot and add Netlify's `bot-field` honeypot. A filled honeypot shows the success state and is not stored. Netlify also runs Akismet on accepted posts. `/api/contact` still has its best-effort in-memory rate limit for the future n8n path; that limit is not shared across serverless instances and does not apply to Netlify Forms submissions.
 
 ## Project Structure
 
@@ -198,7 +201,7 @@ Tailwind breakpoints: `sm:` (640px), `md:` (768px), `lg:` (1024px), `xl:` (1280p
 - React Hook Form + Zod (form validation)
 
 **Optional:**
-- n8n webhook for lead intake (configure via `CONTACT_N8N_WEBHOOK_URL` and optional `CONTACT_WEBHOOK_SECRET`)
+- n8n webhook for a future lead phase (`CONTACT_N8N_WEBHOOK_URL` and optional `CONTACT_WEBHOOK_SECRET`). Live forms use Netlify Forms instead
 
 ## SEO
 
@@ -223,8 +226,8 @@ Tailwind breakpoints: `sm:` (640px), `md:` (768px), `lg:` (1024px), `xl:` (1280p
 `netlify.toml` sets the Next.js 15 build (`npm run build`, publish `.next`, Node 22). Netlify installs the Next.js runtime automatically. No Netlify site is linked from this repository yet, and `ekilibriumtechnologies.com` still points at the existing Vercel site. Do not change production DNS until a Netlify deploy is approved.
 
 1. Create a site on the existing Ekilibrium Technologies Netlify team and connect `EkilibriumTechnologies/Ekilibrium-Technologies-Website` with production branch `main`
-2. Import and activate `n8n/ekilibrium-rental-tech-audit-lead.json`, then set `CONTACT_N8N_WEBHOOK_URL` and `CONTACT_WEBHOOK_SECRET` in the Netlify dashboard
-3. Deploy with Netlify's Next.js runtime
+2. Enable Netlify form detection, deploy, and send form notifications to `consulting@ekilibriumtechnologies.com`. Do not add an email notification to the person who submitted the form
+3. Leave the n8n webhook unset until that phase is approved
 4. Attach the production domain only after the preview deploy is accepted
 
 ### Other Platforms
