@@ -93,6 +93,9 @@ export function HeroSectionEs() {
                 </div>
 
                 <div className="pt-3 border-t border-border">
+                  <p className="mb-2 text-center text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                    Datos de muestra
+                  </p>
                   <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
                     <div>
                       <div className="text-lg sm:text-2xl font-bold text-foreground font-mono">42</div>

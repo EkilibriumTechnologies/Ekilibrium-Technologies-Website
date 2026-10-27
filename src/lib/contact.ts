@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+/**
+ * Public Rental Tech Audit forms submit to Netlify Forms and do not call this module.
+ * The webhook path stays available for a future n8n phase.
+ */
+
 export const FLEET_SIZES = [
   "1-5",
   "6-10",

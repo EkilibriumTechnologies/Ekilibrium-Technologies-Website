@@ -4,7 +4,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Ekilibrium Rental Tech Audit Lead\n\nReceives validated leads forwarded by the website API (`POST /api/contact`).\n\n**Do not** point the browser at this webhook. Configure Netlify/server env only:\n- `CONTACT_N8N_WEBHOOK_URL`\n- `CONTACT_WEBHOOK_SECRET` (must match the Header Auth credential below)\n\n### Missing production connections\nThis repository has **no** approved storage or operator-email integration yet.\nAfter import, connect durable storage and/or operator notification before relying on production leads.\nUntil then, accepted leads are retained only in n8n execution history.",
+        "content": "## Ekilibrium Rental Tech Audit Lead\n\nPreserved for a future n8n phase. Production Rental Tech Audit submissions are stored by Netlify Forms and are not forwarded here.\n\n**Do not** point the website forms or the browser at this webhook. When this workflow is activated later, configure server env only:\n- `CONTACT_N8N_WEBHOOK_URL`\n- `CONTACT_WEBHOOK_SECRET` (must match the Header Auth credential below)\n\n`/api/contact` still validates and can forward to this webhook, but the public forms do not call that route.",
         "height": 460,
         "width": 420
       },

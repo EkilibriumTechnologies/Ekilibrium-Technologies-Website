@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>Rental Tech Audit</title>
+  </head>
+  <body>
+    <!--
+      Static Netlify Forms definition for the Next.js Pages Router app.
+      English and Spanish Rental Tech Audit forms both post this field set.
+      Do not add fields here unless the AJAX body sends them too.
+    -->
+    <form
+      name="rental-tech-audit"
+      method="POST"
+      action="/__forms.html"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      hidden
+    >
+      <input type="hidden" name="form-name" value="rental-tech-audit" />
+      <input type="hidden" name="subject" value="New Rental Tech Audit lead" />
+      <p>
+        <label>
+          Name
+          <input type="text" name="name" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Email
+          <input type="email" name="email" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Phone
+          <input type="tel" name="phone" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Company
+          <input type="text" name="company" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Fleet size
+          <input type="text" name="fleetSize" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Business needs
+          <textarea name="businessNeeds"></textarea>
+        </label>
+      </p>
+      <p>
+        <label>
+          First name
+          <input type="text" name="firstName" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Last name
+          <input type="text" name="lastName" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Current software
+          <input type="text" name="currentSoftware" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Language
+          <input type="text" name="language" />
+        </label>
+      </p>
+      <p hidden>
+        <label>
+          Don't fill this out if you're human:
+          <input name="bot-field" />
+        </label>
+      </p>
+    </form>
+  </body>
+</html>
